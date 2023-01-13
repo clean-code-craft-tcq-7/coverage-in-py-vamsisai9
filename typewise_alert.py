@@ -7,18 +7,18 @@ def infer_breach(value, lowerLimit, upperLimit):
   return 'NORMAL'
 
 
-def classify_temperature_breach(coolingType, temperatureInC):
-  lowerLimit = 0
-  upperLimit = 0
+def assignLimits(coolingType):
   if coolingType == 'PASSIVE_COOLING':
-    lowerLimit = 0
-    upperLimit = 35
+      return 0,35
   elif coolingType == 'HI_ACTIVE_COOLING':
-    lowerLimit = 0
-    upperLimit = 45
+      return 0,45
   elif coolingType == 'MED_ACTIVE_COOLING':
-    lowerLimit = 0
-    upperLimit = 40
+      return 0,40
+  return 0,0
+
+
+def classify_temperature_breach(coolingType, temperatureInC):
+  lowerLimit,upperLimit = assignLimits(coolingType)
   return infer_breach(temperatureInC, lowerLimit, upperLimit)
 
 
