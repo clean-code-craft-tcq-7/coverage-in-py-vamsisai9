@@ -1,4 +1,11 @@
 
+collingInfo = {
+      'PASSIVE_COOLING' : {'lower':0,'upper':35},
+      'HI_ACTIVE_COOLING' : {'lower':0,'upper':45},
+      'MED_ACTIVE_COOLING' : {'lower':0,'upper':40}
+
+      }
+
 def infer_breach(value, lowerLimit, upperLimit):
   if value < lowerLimit:
     return 'TOO_LOW'
@@ -7,19 +14,9 @@ def infer_breach(value, lowerLimit, upperLimit):
   return 'NORMAL'
 
 
-def assignLimits(coolingType):
-  if coolingType == 'PASSIVE_COOLING':
-      return 0,35
-  elif coolingType == 'HI_ACTIVE_COOLING':
-      return 0,45
-  elif coolingType == 'MED_ACTIVE_COOLING':
-      return 0,40
-  return 0,0
-
 
 def classify_temperature_breach(coolingType, temperatureInC):
-  lowerLimit,upperLimit = assignLimits(coolingType)
-  return infer_breach(temperatureInC, lowerLimit, upperLimit)
+  return infer_breach(temperatureInC, collingInfo[coolingType]['lower'], collingInfo[coolingType]['upper'])
 
 
 def alertAction(alertTarget,breachType):
